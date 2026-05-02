@@ -1,0 +1,11 @@
+{
+  "name": "flms-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0"
+  }
+}
