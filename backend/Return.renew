@@ -1,0 +1,34 @@
+exports.returnBook = async (req, res) => {
+  const loan = await Loan.findById(req.params.id);
+
+  if (!loan || loan.return_date)
+    return res.status(400).json({ msg: "Invalid" });
+
+  loan.return_date = new Date();
+  await loan.save();
+
+  const resource = await Resource.findById(loan.resource);
+  resource.available_copies += 1;
+  await resource.save();
+
+  res.json({ msg: "Returned" });
+};
+
+exports.renew = async (req, res) => {
+  const loan = await Loan.findById(req.params.id);
+
+  if (!loan || loan.return_date)
+    return res.status(400).json({ msg: "Invalid" });
+
+  if (loan.renew_count >= 2)
+    return res.status(400).json({ msg: "Max renew reached" });
+
+  const days = req.user.role === "faculty" ? 30 : 14;
+
+  loan.due_date.setDate(loan.due_date.getDate() + days);
+  loan.renew_count += 1;
+
+  await loan.save();
+
+  res.json(loan);
+};
