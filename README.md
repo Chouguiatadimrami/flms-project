@@ -79,7 +79,7 @@ flms/
 
 1. Clone the repository
 
-git clone https://github.com/chouguiat adimrami/flms.git
+git clone https://github.com/chouguiatadimrami/flms.git
 cd flms
 
 2. Backend setup
